@@ -1,12 +1,36 @@
 # Starter pipeline
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud_test'
+    organization: 'andrewcaio'
+    scannerMode: 'MSBuild'
+    projectKey: 'andrewcaio_QA_Andrew'
+    projectName: 'QA_Andrew'
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+sonar.projectKey=andrewcaio_QA_Andrew
+sonar.organization=andrewcaio
+
+# This is the name and version displayed in the SonarCloud UI.
+#sonar.projectName=QA_Andrew
+#sonar.projectVersion=1.0
+
+# Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.
+#sonar.sources=.
+
+# Encoding of the source code. Default is default system encoding
+#sonar.sourceEncoding=UTF-8
+
 trigger:
+- task: SonarCloudAnalyze@1
 - master
 
 pool:
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
   vmImage: ubuntu-latest
 
 steps:

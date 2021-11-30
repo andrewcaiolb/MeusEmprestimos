@@ -6,7 +6,6 @@ sonar.organization=andrewcaio
   inputs:
     SonarCloud: 'sonarcloud_test'
     organization: 'andrewcaio'
-    scannerMode: 'MSBuild'
     projectKey: 'andrewcaio_QA_Andrew'
     projectName: 'QA_Andrew'
 
@@ -14,15 +13,14 @@ sonar.organization=andrewcaio
   inputs:
     solution: '**\*.sln'
     
-trigger:
-- task: SonarCloudAnalyze@1
-- master
-
 pool:
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
   vmImage: ubuntu-latest
+
+- task: SonarCloudAnalyze@1
+
 
 steps:
 - script: echo Hello, world!
